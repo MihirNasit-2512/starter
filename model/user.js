@@ -17,11 +17,6 @@ const userSchema = new mongoose.Schema(
       required: true,
       minLength: 6,
     },
-    // isStudent: {
-    //   type: Boolean,
-    //   required: true,
-    //   default: true,
-    // },
     isActive: {
       type: Boolean,
       default: true,
@@ -67,4 +62,4 @@ userSchema.statics.findByToken = function (token) {
   }
 };
 
-module.exports = mongoose.model("Users", userSchema);
+module.exports = mongoose.models.Users || mongoose.model("Users", userSchema);
