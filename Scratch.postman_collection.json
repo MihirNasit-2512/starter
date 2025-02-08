@@ -1,0 +1,293 @@
+{
+	"info": {
+		"_postman_id": "2416e32c-8fea-4922-9097-53d5745e165a",
+		"name": "Scratch",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33529852"
+	},
+	"item": [
+		{
+			"name": "posts",
+			"item": [
+				{
+					"name": "create-post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{access_token}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"Sample Post Title 2\",\r\n  \"content\": \"This is the content of the post.\",\r\n  \"author\": \"Author Name\",\r\n  \"authorId\": \"67a735a59c99c7b331de15ac\",\r\n  \"location\": {\r\n    \"type\": \"Point\",\r\n    \"coordinates\": [72.8777, 19.0760]\r\n  },\r\n  \"tags\": [\"tag1\", \"tag2\"],\r\n  \"categories\": [\"category1\"],\r\n  \"status\": \"draft\",\r\n  \"publishedDate\": \"2025-02-08T15:46:50Z\",\r\n  \"updatedDate\": \"2025-02-08T15:46:50Z\",\r\n  \"imageUrl\": \"http://example.com/image.jpg\",\r\n  \"isFeatured\": true,\r\n  \"metaDescription\": \"Sample meta description\",\r\n  \"metaKeywords\": [\"keyword1\", \"keyword2\"],\r\n  \"isPublished\": false,\r\n  \"language\": \"en\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/posts/create-post",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"posts",
+								"create-post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{access_token}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"Sample Post Title is update\",\r\n  \"content\": \"This is the content of updated post.\",\r\n//   \"author\": \"Author Name\",\r\n  \"authorId\": \"67a735a59c99c7b331de15ac\"\r\n//   \"location\": {\r\n//     \"type\": \"Point\",\r\n//     \"coordinates\": [72.8777, 19.0760]\r\n//   },\r\n//   \"tags\": [\"tag1\", \"tag2\"],\r\n//   \"categories\": [\"category1\"],\r\n//   \"status\": \"draft\",\r\n//   \"publishedDate\": \"2025-02-08T15:46:50Z\",\r\n//   \"updatedDate\": \"2025-02-08T15:46:50Z\",\r\n//   \"imageUrl\": \"http://example.com/image.jpg\",\r\n//   \"isFeatured\": true,\r\n//   \"metaDescription\": \"Sample meta description\",\r\n//   \"metaKeywords\": [\"keyword1\", \"keyword2\"],\r\n//   \"isPublished\": false,\r\n//   \"language\": \"en\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/posts/update-post/67a73b7cfa03fdc6066135b6",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"posts",
+								"update-post",
+								"67a73b7cfa03fdc6066135b6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{access_token}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/posts/delete-post/67a73b7cfa03fdc6066135b6",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"posts",
+								"delete-post",
+								"67a73b7cfa03fdc6066135b6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-posts",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/posts/get-posts?postId=67a73b7cfa03fdc6066135b6",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"posts",
+								"get-posts"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "type",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "postId",
+									"value": "67a73b7cfa03fdc6066135b6"
+								},
+								{
+									"key": "search",
+									"value": "tit",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = await pm.response.json();\r",
+									"await pm.environment.set(\"access_token\",response.token);\r",
+									"// await pm.environment.set(\"other_access_token\",response.token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"mihir@gamil.com\",\r\n    \"password\":\"Mihij@5689\"\r\n}\r\n\r\n// {\r\n//     \"email\":\"mayank@gmail.com\",\r\n//     \"password\":\"Mihij@5689\"\r\n// }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/login",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "signup",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"mayank@gmail.com\",\r\n    \"password\":\"Mihij@5689\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/signup",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "healthcheck",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/healthcheck",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"healthcheck"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
