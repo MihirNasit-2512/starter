@@ -1,9 +1,7 @@
 const { LIST_TYPE } = require("../helper/constant");
-const { checkRequired } = require("../helper/utils");
+const { checkRequired, checkMongoIdIsInvalid } = require("../helper/utils");
 const Post = require("../model/post");
-// const { default: mongoose } = require("mongoose");
-// const ObjectId = mongoose.Types.ObjectId
-// new ObjectId("id")
+//      whereClause["_id"] = mongoose.Types.ObjectId.createFromHexString(postId);
 exports.createPost = async (req, res) => {
   try {
     const requiredArr = ["title", "content", "author"];
@@ -80,8 +78,18 @@ exports.getPosts = async (req, res) => {
     const { _id: userId } = req.user;
     const skip = (page - 1) * limit;
     let whereClause = {};
+    const mongoIdArr = [];
     if (postId) {
       whereClause["_id"] = postId;
+      mongoIdArr.push(postId);
+    }
+    const invalid = await checkMongoIdIsInvalid(mongoIdArr, req.query);
+    if (invalid?.length > 0) {
+      return res.status(400).send({
+        success: false,
+        msg: "Invalid id.",
+        invalid: invalid,
+      });
     }
     if (search) {
       whereClause["title"] = { $regex: ".*" + search + ".*", $options: "i" };
@@ -107,7 +115,15 @@ exports.updatePost = async (req, res) => {
   try {
     const { postId = "" } = req.params;
     const { _id: userId } = req.user;
-    const updateFields = req.body;
+    const mongoIdArr = ["postId"];
+    const invalid = await checkMongoIdIsInvalid(mongoIdArr, req.params);
+    if (invalid?.length > 0) {
+      return res.status(400).send({
+        success: false,
+        msg: "Invalid id.",
+        invalid: invalid,
+      });
+    }
     const isPostExist = await Post.find({ _id: postId, authorId: userId });
     if (!isPostExist) {
       return res.status(404).send({
@@ -115,12 +131,13 @@ exports.updatePost = async (req, res) => {
         msg: "Post not found.",
       });
     }
-    if (updateFields?.authorId) {
-      delete updateFields?.authorId;
-    }
+    let updateObj = await getAllowedUpdateObject(
+      ["title", "content","author"],
+      req.body
+    );  
     await Post.findByIdAndUpdate(
       postId,
-      { $set: updateFields },
+      { $set: updateObj },
       { runValidators: true } // Return the updated document and run validators
     );
     return res.status(200).send({

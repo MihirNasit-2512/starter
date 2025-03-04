@@ -1,4 +1,4 @@
-const { checkRequired } = require("../helper/utils");
+const { checkRequired, isValidEmail } = require("../helper/utils");
 const User = require("../model/user");
 
 exports.login = async (req, res) => {
@@ -13,6 +13,12 @@ exports.login = async (req, res) => {
       });
     }
     const { email, password } = req.body;
+    if (email && !isValidEmail(email)) {
+      return res.status(400).send({
+        success: false,
+        msg: "Enter valid email.",
+      });
+    }
     const isExist = await User.findOne({ email });
     if (!isExist) {
       return res.status(400).send({
@@ -53,6 +59,12 @@ exports.signup = async (req, res) => {
       });
     }
     const { email, password } = req.body;
+    if (email && !isValidEmail(email)) {
+      return res.status(400).send({
+        success: false,
+        msg: "Enter valid email.",
+      });
+    }
     const isExist = await User.findOne({ email });
     if (isExist) {
       return res.status(400).send({
